@@ -181,13 +181,13 @@ const Android = ({ color, remove, markDead, setBrushColor }: IAndroidProps) => {
   const [isDead, setIsDead] = useState<boolean>(false);
 
   return (
-    <div style={{ width: "48%", position: "relative", margin: "0 auto", maxHeight: 160 }}>
+    <div style={{ width: "48%", position: "relative", margin: "0 auto", maxHeight: 160, marginBottom: 16 }}>
       <img src={`/assests/${color}.png`} alt={color} style={{ width: "70%", height: "100%", cursor: "pointer" }} onClick={setBrushColor} />
       <button onClick={remove} style={{ position: "absolute", right: 0, top: 0, cursor: "pointer", }}>X</button>
       <button style={{
-        minWidth: "60%",
+        minWidth: "70%",
         position: "absolute",
-        bottom: "26%",
+        bottom: "30%",
         right: 0,
         maxHeight: 100,
         height: "24%",
@@ -195,10 +195,10 @@ const Android = ({ color, remove, markDead, setBrushColor }: IAndroidProps) => {
         cursor: "pointer",
         color: "white",
         fontWeight: "bold",
-        backgroundColor: isSus ? "red" : "grey"
+        backgroundColor: isSus ? "red" : "lightgrey"
       }} onClick={() => setIsSus(!isSus)}>SUS</button>
       <button style={{
-        minWidth: "60%",
+        minWidth: "70%",
         position: "absolute",
         bottom: "0%",
         right: 0,
@@ -208,7 +208,7 @@ const Android = ({ color, remove, markDead, setBrushColor }: IAndroidProps) => {
         cursor: "pointer",
         color: "white",
         fontWeight: "bold",
-        backgroundColor: isDead ? "black" : "grey"
+        backgroundColor: isDead ? "black" : "lightgrey"
       }} onClick={() => {
         setIsDead(!isDead);
         markDead();
