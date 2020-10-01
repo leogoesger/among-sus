@@ -65,6 +65,19 @@ export default function Home() {
         <meta property="og:description" content={"New to the Among Us game? Not sure what to do for each tasks? Really bad memory on what people have said? Having a SUS but you cannot remember? Among-SUS is here to help!"} />
         <meta property="og:image" content={"https://res.cloudinary.com/foodnome/image/upload/v1601575772/gkfo7qn84llmh6hisww5.png"} />
         <script data-ad-client="ca-pub-2968396275140425" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <script dangerouslySetInnerHTML={{
+          __html: `
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179425634-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-179425634-1');
+        </script>
+        `}} />
+
       </Head>
       <Dialog open={warningDialog}>
         <DialogContent>
