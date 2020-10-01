@@ -62,7 +62,12 @@ export default function Home() {
             <li>Some Android might not be in the game, you can see which one isn't by going to the COLOR customization IN THE GAME.</li>
             <li>Click on DEAD will shuffle the android to the bottom</li>
           </ul>
-          <p>This base map isn't great! If you have a better one, find my info below.</p>
+          <h4 style={{ marginBottom: 0 }}>Needed:</h4>
+          <ul style={{ margin: 0 }}>
+            <li>This base map isn't great! If you have a better one, find my info below.</li>
+            <li>Annotation for all the tasks</li>
+            <li>Other maps</li>
+          </ul>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setWarningDialog(false)} variant="contained" color="secondary" size="small">Got It!</Button>
