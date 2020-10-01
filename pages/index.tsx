@@ -4,6 +4,7 @@ import { CSSProperties, useState, useEffect } from 'react';
 import { polusFeatures } from "../static/polus-features";
 import { Divider, Dialog, DialogContent, DialogActions, Button } from "@material-ui/core";
 import { MdArrowDropDown } from "react-icons/md";
+import Head from 'next/head';
 
 export interface BaseFeature {
   type?: "rect" | "circ";
@@ -53,6 +54,17 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Among-Sus</title>
+        <meta property="og:type" content="website" />
+        <meta name="description" content={"New to the Among Us game? Not sure what to do for each tasks? Really bad memory on what people have said? Having a SUS but you cannot remember? Among-SUS is here to help!"} />
+        <meta property="og:title" content={"Among-Sus"} />
+        <meta name="description" content={"New to the Among Us game? Not sure what to do for each tasks? Really bad memory on what people have said? Having a SUS but you cannot remember? Among-SUS is here to help!"} />
+        <meta name="keywords" content={"among us map, among us"} />
+        <meta property="og:url" content={`https://among-sus.com`} />
+        <meta property="og:description" content={"New to the Among Us game? Not sure what to do for each tasks? Really bad memory on what people have said? Having a SUS but you cannot remember? Among-SUS is here to help!"} />
+        <meta property="og:image" content={"https://res.cloudinary.com/foodnome/image/upload/v1601575772/gkfo7qn84llmh6hisww5.png"} />
+      </Head>
       <Dialog open={warningDialog}>
         <DialogContent>
           Please let other players know you are using this tool, so it is FAIR for everyone!
