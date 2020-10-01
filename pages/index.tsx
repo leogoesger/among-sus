@@ -1,9 +1,10 @@
 import "../styles/Home.module.css";
 import { useOverlay } from '../components';
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useState, useEffect } from 'react';
 import { polusFeatures } from "../static/polus-features";
 import { Divider, Dialog, DialogContent, DialogActions, Button } from "@material-ui/core";
 import { MdArrowDropDown } from "react-icons/md";
+
 export interface BaseFeature {
   type?: "rect" | "circ";
   id: number | string;
@@ -16,8 +17,6 @@ export interface BaseFeature {
   width: number;
   height: number;
 }
-
-
 
 export type IFeature = BaseFeature;
 
@@ -39,7 +38,7 @@ export default function Home() {
   const [totalRounds, setTotalRounds] = useState([0]);
   const [currentRound, setCurrentRound] = useState(0);
   const [colors, setColors] = useState(COLORS);
-  const [warningDialog, setWarningDialog] = useState(true);
+  const [warningDialog, setWarningDialog] = useState(false);
 
 
   const reset = () => {
@@ -47,6 +46,11 @@ export default function Home() {
     setCurrentRound(0);
     setTotalRounds([0]);
   };
+
+  useEffect(() => {
+    setTimeout(() => setWarningDialog(true), 1000);
+  }, []);
+
   return (
     <>
       <Dialog open={warningDialog}>
