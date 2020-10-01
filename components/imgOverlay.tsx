@@ -110,5 +110,6 @@ export const useOverlay = ({ imgUrl, features, showCanvas }: IProps) => {
         setBrushColor,
         canvasUndo: canvasRef?.current?.undo,
         canvasClear: canvasRef?.current?.clear,
+        removeClickFeature: () => setClickFeature(undefined)
     };
 };

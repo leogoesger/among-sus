@@ -54,7 +54,16 @@ export default function Home() {
   return (
     <>
       <Dialog open={warningDialog}>
-        <DialogContent>Please let other players know you are using this tool, so it is fair for everyone!</DialogContent>
+        <DialogContent>
+          Please let other players know you are using this tool, so it is FAIR for everyone!
+          <h4 style={{ marginBottom: 0 }}>Tips:</h4>
+          <ul style={{ margin: 0 }}>
+            <li>Click on an Android to mark on the map with Pencil</li>
+            <li>Some Android might not be in the game, you can see which one isn't by going to the COLOR customization IN THE GAME.</li>
+            <li>Click on DEAD will shuffle the android to the bottom</li>
+          </ul>
+          <p>This base map isn't great! If you have a better one, find my info below.</p>
+        </DialogContent>
         <DialogActions>
           <Button onClick={() => setWarningDialog(false)} variant="contained" color="secondary" size="small">Got It!</Button>
         </DialogActions>
@@ -80,7 +89,8 @@ export default function Home() {
           <Game currentRound={currentRound} colors={colors} setColors={setColors} />
           <footer>
             Created by Leo :) <a href="https://github.com/leogoesger">Github</a> / <a href="https://twitter.com/leog0esger">Twitter</a>. Contact me via Twitter😋
-        </footer>
+
+          </footer>
         </div>)}
       </div>
     </>
@@ -88,14 +98,6 @@ export default function Home() {
 }
 
 
-enum StatusEnum {
-  UNKNOWN = 1,
-  SUS,
-  SAFE,
-  DEAD
-}
-
-const StatusEnumColor = ["", "grey", "red", "green", "black"];
 
 interface IProps {
   currentRound: number;
@@ -104,67 +106,90 @@ interface IProps {
 }
 
 const Game = ({ currentRound, colors, setColors }: IProps) => {
-  const { component, setBrushColor, canvasUndo, canvasClear } =
+  const { component, setBrushColor, canvasUndo, canvasClear, clickFeature, removeClickFeature } =
     useOverlay({
-      imgUrl: "/assests/polus.png",
+      imgUrl: "/assests/skeld.png",
       features: polusFeatures,
       showCanvas: true
     });
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <section style={{ backgroundColor: "royalblue", width: "79%" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <h1 style={{ marginLeft: "5%" }}>Round {currentRound + 1}</h1>
-          <div style={{ display: "flex" }}>
-            <button onClick={canvasUndo} style={{ height: 40, width: 100 }}>Undo</button>
-            <button onClick={canvasClear} style={{ height: 40, width: 100 }}>Clear Map</button>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginRight: 10 }}>
-              <span style={{ color: "white" }}>Pick a color to mark the map</span>
-              <div style={{ display: "flex" }}>
-                {colors.map(c => <button key={c} onClick={() => setBrushColor(c)}
-                  style={{
-                    backgroundColor: c,
-                    cursor: "pointer",
-                    marginLeft: 4,
-                    border: "none",
-                    borderRadius: "50%", width: 30, height: 30
-                  }} />)}
-              </div>
+    <>
+      <Dialog open={!!clickFeature} onClick={removeClickFeature}>
+        <DialogContent>
+          {clickFeature && JSON.stringify(clickFeature)}
+        </DialogContent>
+      </Dialog>
+      <div style={{ display: "flex", justifyContent: "space-between", maxHeight: 1000 }}>
+        <section style={{ backgroundColor: "royalblue", width: "79%" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <h1 style={{ marginLeft: "5%" }}>Round {currentRound + 1}</h1>
+            <div style={{ display: "flex", marginRight: 10 }}>
+              <button onClick={canvasUndo} style={{ height: 40, width: 100 }}>Undo</button>
+              <button onClick={canvasClear} style={{ height: 40, width: 100 }}>Clear Map</button>
             </div>
           </div>
-        </div>
 
-        <div style={{ width: "100%" }}>
-          {component}
-        </div>
-      </section>
+          <div style={{ width: "100%" }}>
+            {component}
+          </div>
+        </section>
 
-      <section style={{ width: "20%", display: "flex", flexWrap: "wrap" }}>
-        {colors.map(c => <Android key={c} color={c} remove={() => setColors(colors.filter(_c => _c !== c))} />)}
-      </section>
-    </div>
+        <section style={{ width: "20%", display: "flex", flexWrap: "wrap" }}>
+          <div style={{ backgroundColor: "lightgray" }}>
+
+
+          </div>
+          {colors.map(c => <Android key={c} color={c}
+            setBrushColor={() => setBrushColor(c)}
+            remove={() => setColors(colors.filter(_c => _c !== c))}
+            markDead={() => setColors(colors.slice(0).sort((_, b) => b === c ? -1 : 1))} />)}
+        </section>
+      </div>
+    </>
   );
 };
 
-const Android = ({ color, remove }: { color: string, remove: () => void }) => {
-  const [status, setStatus] = useState<StatusEnum>(1);
+interface IAndroidProps {
+  color: string; remove: () => void; markDead: () => void; setBrushColor: () => void;
+}
+
+const Android = ({ color, remove, markDead, setBrushColor }: IAndroidProps) => {
+  const [isSus, setIsSus] = useState<boolean>(false);
+  const [isDead, setIsDead] = useState<boolean>(false);
 
   return (
     <div style={{ width: "48%", position: "relative", margin: "0 auto", maxHeight: 160 }}>
-      <img src={`/assests/${color}.png`} alt={color} style={{ width: "70%" }} />
+      <img src={`/assests/${color}.png`} alt={color} style={{ width: "70%", height: "100%", cursor: "pointer" }} onClick={setBrushColor} />
       <button onClick={remove} style={{ position: "absolute", right: 0, top: 0, cursor: "pointer", }}>X</button>
       <button style={{
         minWidth: "60%",
         position: "absolute",
-        bottom: "20%",
+        bottom: "26%",
         right: 0,
+        maxHeight: 100,
         height: "24%",
         border: "none",
         cursor: "pointer",
         color: "white",
         fontWeight: "bold",
-        backgroundColor: StatusEnumColor[status]
-      }} onClick={() => { status !== 4 ? setStatus(status + 1) : setStatus(1); }}>{StatusEnum[status]}</button>
+        backgroundColor: isSus ? "red" : "grey"
+      }} onClick={() => setIsSus(!isSus)}>SUS</button>
+      <button style={{
+        minWidth: "60%",
+        position: "absolute",
+        bottom: "0%",
+        right: 0,
+        maxHeight: 100,
+        height: "24%",
+        border: "none",
+        cursor: "pointer",
+        color: "white",
+        fontWeight: "bold",
+        backgroundColor: isDead ? "black" : "grey"
+      }} onClick={() => {
+        setIsDead(!isDead);
+        markDead();
+      }}>DEAD</button>
     </div>);
 };
