@@ -1,3 +1,3 @@
 import { useOverlay } from "./imgOverlay";
-
-export { useOverlay };
+import { AdBanner } from "./adBanner";
+export { useOverlay, AdBanner };

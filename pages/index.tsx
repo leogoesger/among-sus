@@ -1,5 +1,5 @@
 import "../styles/Home.module.css";
-import { useOverlay } from '../components';
+import { AdBanner, useOverlay } from '../components';
 import { CSSProperties, useState, useEffect } from 'react';
 import { polusFeatures } from "../static/polus-features";
 import { Divider, Dialog, DialogContent, DialogActions, Button } from "@material-ui/core";
@@ -58,7 +58,7 @@ export default function Home() {
 
   return (
     <>
-      <Head>
+      <Head >
         <title>Among-Sus</title>
         <meta property="og:type" content="website" />
         <meta name="description" content={"New to the Among Us game? Not sure what to do for each tasks? Really bad memory on what people have said? Having a SUS but you cannot remember? Among-SUS is here to help!"} />
@@ -68,8 +68,6 @@ export default function Home() {
         <meta property="og:url" content={`https://among-sus.com`} />
         <meta property="og:description" content={"New to the Among Us game? Not sure what to do for each tasks? Really bad memory on what people have said? Having a SUS but you cannot remember? Among-SUS is here to help!"} />
         <meta property="og:image" content={"https://res.cloudinary.com/foodnome/image/upload/v1601575772/gkfo7qn84llmh6hisww5.png"} />
-        <script data-ad-client="ca-pub-2968396275140425" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
       </Head>
       <Dialog open={warningDialog}>
         <DialogContent>
@@ -116,6 +114,7 @@ export default function Home() {
           </footer>
         </div>)}
       </div>
+      <AdBanner />
     </>
   );
 }
