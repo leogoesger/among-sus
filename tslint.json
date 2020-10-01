@@ -1,0 +1,32 @@
+{
+    "defaultSeverity": "error",
+    "extends": ["tslint:recommended"],
+    "jsRules": {},
+    "rules": {
+      "no-console": [true, "log", "error"],
+      "no-var-requires": false,
+      "quotemark": false,
+      "ordered-imports": false,
+      "arrow-parens": false,
+      "trailing-comma": false,
+      "interface-name": false,
+      "no-unused-expression": false,
+      "object-literal-sort-keys": false,
+      "member-access": false,
+      "curly": false,
+      "no-angle-bracket-type-assertion": false,
+      "whitespace": false,
+      "one-variable-per-declaration": false,
+      "interface-over-type-literal": false,
+      "variable-name": false,
+      "no-namespace": false,
+      "object-literal-key-quotes": false,
+      "semicolon": [true, "always", "ignore-bound-class-methods"],
+      "space-before-function-paren": false
+    },
+    "compilerOptions": {
+      "typeRoots": ["src/types.d.ts", "node_modules/@types"]
+    },
+    "rulesDirectory": []
+  }
+  
